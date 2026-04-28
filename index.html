@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lớp 9A & Nhóm 4</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* TONE MÀU HỒNG THANH LỊCH & SÁNG */
+            --primary-color: #d81b60;   /* Màu hồng đậm cho Tiêu đề & Footer */
+            --accent-color: #ff4081;    /* Màu hồng rực làm điểm nhấn */
+            --text-main: #5c0029;       /* Chữ màu hồng đen/đỏ rượu đậm để dễ đọc */
+            --text-light: #9d174d;      /* Chữ phụ màu hồng trầm */
+            --bg-white: #fff5f8;        /* Nền trắng pha chút hồng phấn siêu nhạt */
+            --bg-gray: #ffe4ed;         /* Nền hồng nhạt cho các khối xen kẽ */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-white);
+            line-height: 1.7;
+            overflow: hidden; 
+        }
+
+        /* ================= MÀN HÌNH CHỜ (OVERLAY) ================= */
+        #enterOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(80, 15, 45, 0.7); /* Nền mờ màu hồng trầm huyền ảo */
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 10000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: #fff;
+            cursor: pointer;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        #enterOverlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .enter-content {
+            text-align: center;
+            animation: pulseText 2s infinite ease-in-out;
+        }
+
+        .enter-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .enter-content p {
+            font-size: 1.2rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: #fbcfe8; /* Màu hồng sáng */
+        }
+
+        @keyframes pulseText {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; text-shadow: 0 0 20px rgba(251, 207, 232, 0.6); }
+        }
+
+        /* ========================================================== */
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            /* Dải gradient nền hồng cực đẹp và chuyển động mượt */
+            background: linear-gradient(-45deg, #ffdee9, #ffc3a0, #ffb6c1, #ffdee9);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            padding: 120px 20px;
+            text-align: center;
+            border-bottom: 1px solid #ffccd5;
+            overflow: hidden;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Hạt bụi màu hồng bay lơ lửng */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 64, 129, 0.15);
+            animation: float 8s infinite ease-in-out alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-40px) scale(1.2); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Container & Layout */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .bg-light-gray {
+            background-color: var(--bg-gray);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 50px;
+            font-family: 'Playfair Display', serif;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            display: block;
+            margin: 15px auto 0;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .section-title:hover::after {
+            width: 120px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+
+        .row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .col-img, .col-text {
+            flex: 1;
+        }
+
+        /* Image Wrapper & Slideshow Effects */
+        .img-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(216, 27, 96, 0.15); /* Bóng đổ ám hồng */
+            border: 5px solid #fff;
+            width: 100%; 
+            height: 400px; 
+            background: #ffccd5; /* Nền mờ màu hồng lúc chưa load ảnh */
+        }
+
+        .img-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            z-index: 5;
+            transition: left 0.8s ease;
+            pointer-events: none;
+        }
+
+        .img-wrapper:hover::before {
+            left: 200%;
+        }
+
+        .img-wrapper.slideshow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .img-wrapper.slideshow img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform: translateZ(0) scale(1);
+            transform: translateZ(0) scale(1);
+            will-change: transform, opacity;
+            image-rendering: high-quality; 
+            transition: opacity 2s ease-in-out, transform 10s linear;
+            z-index: 1;
+        }
+
+        .img-wrapper.slideshow img.active {
+            opacity: 1;
+            -webkit-transform: translateZ(0) scale(1.08);
+            transform: translateZ(0) scale(1.08);
+            z-index: 2;
+        }
+
+        .col-text h3 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .col-text p {
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background-color: #fff;
+            padding: 25px;
+            border-left: 5px solid var(--accent-color);
+            border-radius: 8px;
+            margin-top: 25px;
+            font-style: italic;
+            color: var(--text-light);
+            box-shadow: 0 10px 20px rgba(255, 64, 129, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-box:hover {
+            transform: translateX(10px);
+        }
+
+        /* CSS Lớp 9A */
+        .class-memories { padding: 100px 20px; }
+        .class-content { display: flex; flex-direction: column; align-items: center; gap: 40px; }
+        .class-img-container { width: 100%; max-width: 900px; }
+        .large-img { box-shadow: 0 15px 30px rgba(216, 27, 96, 0.15); }
+        .class-text-container { max-width: 800px; text-align: center; }
+        .class-text-container p { font-size: 1.1rem; color: var(--text-main); margin-bottom: 20px; text-align: justify; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: var(--primary-color);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer p { font-size: 1rem; opacity: 0.9; position: relative; z-index: 2; }
+
+        /* Scroll Animations */
+        .hidden-up { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .hidden-left { opacity: 0; transform: translateX(-50px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .hidden-right { opacity: 0; transform: translateX(50px); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .show { opacity: 1; transform: translate(0, 0); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .row, .row.reverse { flex-direction: column; gap: 40px; }
+            .section-title { font-size: 2.2rem; }
+            .enter-content h2 { font-size: 1.8rem; padding: 0 20px; }
+            .img-wrapper { height: 300px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="enterOverlay">
+        <div class="enter-content">
+            <h2>Lớp 9A & Nhóm 4</h2>
+            <p>[ Nhấp vào để khám phá ]</p>
+        </div>
+    </div>
+    
+    <audio id="bgMusic" loop>
+        <source src="https://github.com/minhfansubdev/mp3/raw/refs/heads/main/Tuy%E1%BB%83n%20t%E1%BA%ADp%20nh%E1%BB%AFng%20b%C3%A0i%20h%C3%A1t%20v%E1%BB%81%20tu%E1%BB%95i%20h%E1%BB%8Dc%20tr%C3%B2%20hay%20nh%E1%BA%A5t%20%5BRz1pbtqBdVQ%5D.mp3" type="audio/mpeg">
+        Trình duyệt của bạn không hỗ trợ thẻ audio.
+    </audio>
+
+    <header class="hero">
+        <div id="particles"></div>
+        <div class="hero-content">
+            <h1>Lớp 9A & Kỷ Niệm Đẹp Nhất</h1>
+            <p>Gói gọn 4 năm cấp 2, lưu giữ những khoảnh khắc tuyệt vời nhất của tập thể lớp 9A và nhóm 4.</p>
+        </div>
+    </header>
+
+    <section class="container hidden-up">
+        <h2 class="section-title">4 Năm Thanh Xuân Dưới Mái Trường</h2>
+        <div style="text-align: center; max-width: 800px; margin: 0 auto; font-size: 1.2rem; color: var(--text-main);">
+            <p>Bốn năm cấp 2 trôi qua nhanh như một chớp mắt. Từ những ngày đầu tiên còn bỡ ngỡ bước vào lớp 6, cho đến những ngày miệt mài ôn luyện chuẩn bị cho kỳ thi chuyển cấp. Đó là những giờ giải toán căng thẳng, những tiết học thú vị, và cả những lúc cùng bạn bè bàn luận sôi nổi sau giờ học.</p>
+            <p>Mỗi một bài kiểm tra, mỗi một nụ cười trên sân trường đều là những mảnh ghép tạo nên một tuổi học trò rực rỡ và không thể nào quên.</p>
+        </div>
+    </section>
+
+    <section class="class-memories bg-light-gray hidden-up">
+        <div class="container" style="padding-top: 0; padding-bottom: 0;">
+            <h2 class="section-title">Lớp 9A - Một Thời Để Nhớ</h2>
+            <div class="class-content">
+                <div class="class-img-container">
+                    <div class="img-wrapper large-img slideshow slideshow-9a">
+                        <img src="1.png" alt="Tập thể lớp 9A - Ảnh 1" class="active">
+                        <img src="2.png" alt="Tập thể lớp 9A - Ảnh 2">
+                        <img src="3.png" alt="Tập thể lớp 9A - Ảnh 3">
+                    </div>
+                </div>
+                <div class="class-text-container">
+                    <p>Nhìn lại chặng đường đã qua, tập thể 9A chúng tôi luôn tự hào là một lớp học sinh giỏi với vô vàn thành tích xuất sắc. Không chỉ nổi bật trong các phong trào học tập, 9A còn là một đại gia đình vô cùng hòa đồng, vui vẻ và luôn ngập tràn tiếng cười.</p>
+                    <p>Sự nỗ lực rèn luyện chưa bao giờ làm mất đi tình đoàn kết của chúng tôi. Ngược lại, mọi người luôn sát cánh bên nhau, cùng nhau chia sẻ những phương pháp học hay, những tài liệu bổ ích. Bất kỳ ai gặp khó khăn đều nhận được sự giúp đỡ tận tình từ thầy cô và bạn bè trong lớp.</p>
+                    <p>Những khung hình này là minh chứng rõ nét nhất cho một tập thể 9A rạng rỡ, tràn đầy năng lượng và tình yêu thương. Thanh xuân của chúng ta đã gửi gắm trọn vẹn nơi đây, trở thành một miền ký ức đẹp đẽ, lung linh và không thể nào phai nhòa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="row reverse">
+            <div class="col-img hidden-right">
+                <div class="img-wrapper slideshow slideshow-group4">
+                    <img src="4.png" alt="Nhóm 4 - Ảnh 1" class="active">
+                    <img src="5.png" alt="Nhóm 4 - Ảnh 2">
+                </div>
+            </div>
+            <div class="col-text hidden-left">
+                <h3>Nhóm 4 - Đoàn Kết Cùng Tiến Bước</h3>
+                <p>Trong một tập thể 9A xuất sắc, Nhóm 4 chúng tôi là một điểm sáng tuyệt vời về tinh thần đồng đội. Chúng tôi không chỉ là những người bạn học bình thường, mà là những người anh em, chị em luôn kề vai sát cánh.</p>
+                <p>Điều tự hào nhất của Nhóm 4 chính là sự đoàn kết bền chặt và tinh thần luôn sẵn sàng giúp đỡ lẫn nhau trong học tập. Dù là những bài toán hóc búa hay những môn học khó nhằn, cả nhóm luôn biết cách cùng nhau thảo luận, giảng bài cho nhau nghe để không một ai bị bỏ lại phía sau.</p>
+                <div class="highlight-box">
+                    "Đi một mình có thể đi nhanh, nhưng đi cùng Nhóm 4, chúng ta sẽ đi được rất xa. Nơi đây, tình bạn thăng hoa cùng tri thức, tạo nên những năm tháng rực rỡ nhất."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Copyright © 2026 Designed and Coded by <strong>Minh Fansub</strong>. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const overlay = document.getElementById('enterOverlay');
+            const bgMusic = document.getElementById('bgMusic');
+
+            function playMusic() {
+                bgMusic.volume = 0.5;
+                bgMusic.play().catch(error => {
+                    console.log("Không thể tự phát nhạc: ", error);
+                });
+            }
+
+            overlay.addEventListener('click', function() {
+                overlay.classList.add('hidden');
+                document.body.style.overflow = 'auto'; 
+                document.body.style.overflowX = 'hidden'; 
+                playMusic();
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 1000);
+            });
+
+            // --- JAVASCRIPT CHO SLIDESHOW ẢNH TỰ ĐỘNG CHUYỂN MƯỢT MÀ ---
+            function initSlideshow(selector, intervalTime) {
+                const images = document.querySelectorAll(`${selector} img`);
+                if (images.length > 1) {
+                    let currentIndex = 0;
+                    setInterval(() => {
+                        images[currentIndex].classList.remove('active');
+                        currentIndex = (currentIndex + 1) % images.length;
+                        images[currentIndex].classList.add('active');
+                    }, intervalTime);
+                }
+            }
+
+            initSlideshow('.slideshow-9a', 5000); 
+            initSlideshow('.slideshow-group4', 5500);
+
+            // --- JAVASCRIPT CHO HIỆU ỨNG CUỘN TRANG & HẠT BỤI BAY ---
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15 
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const hiddenElements = document.querySelectorAll('.hidden-up, .hidden-left, .hidden-right');
+            hiddenElements.forEach((el) => observer.observe(el));
+            
+            const particleContainer = document.getElementById('particles');
+            if (particleContainer) {
+                const particleCount = 15;
+
+                for (let i = 0; i < particleCount; i++) {
+                    let particle = document.createElement('div');
+                    particle.classList.add('particle');
+                    
+                    let size = Math.random() * 20 + 10 + 'px';
+                    particle.style.width = size;
+                    particle.style.height = size;
+                    particle.style.left = Math.random() * 100 + 'vw';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.animationDelay = Math.random() * 5 + 's';
+                    particle.style.animationDuration = Math.random() * 5 + 5 + 's';
+                    
+                    particleContainer.appendChild(particle);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
